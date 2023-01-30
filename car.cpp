@@ -22,8 +22,14 @@ Car::Car()
 
 Car::Car(char const *const manufacturerName, char const *const modelName, PerformanceStats perf, uint8_t numSeats, DoorKind backseatDoorDesign)
 {
-    this->manufacturer = (char *)manufacturerName;
-    this->model = (char *)modelName;
+    if (manufacturerName != NULL)
+        this->manufacturer = (char *)manufacturerName;
+    else
+        this->manufacturer = NULL;
+    if (modelName != NULL)
+        this->model = (char *)modelName;
+    else
+        this->model = NULL;
     this->seatCount = numSeats;
     this->backseatDoors = backseatDoorDesign;
     this->zeroToSixtyNs = perf.zeroToSixtyNs;
@@ -46,6 +52,11 @@ Car::~Car()
 {
     delete this->manufacturer;
     delete this->model;
+    this->zeroToSixtyNs = 0;
+    this->headonDragCoeff = 0;
+    this->horsepower = 0;
+    this->backseatDoors = None;
+    this->seatCount = 0;
 }
 
 Car &Car::operator=(Car const &o)
