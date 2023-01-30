@@ -22,14 +22,12 @@ Car::Car()
 
 Car::Car(char const *const manufacturerName, char const *const modelName, PerformanceStats perf, uint8_t numSeats, DoorKind backseatDoorDesign)
 {
-    if (manufacturerName != NULL)
-        this->manufacturer = (char *)manufacturerName;
-    else
-        this->manufacturer = NULL;
-    if (modelName != NULL)
-        this->model = (char *)modelName;
-    else
-        this->model = NULL;
+    char *placeholderManufacturer = new char[strlen(manufacturerName) + 1];
+    strcpy(manufacturer, manufacturerName);
+
+    char *placeholderModel = new char[strlen(modelName) + 1];
+    strcpy(model, modelName);
+
     this->seatCount = numSeats;
     this->backseatDoors = backseatDoorDesign;
     this->zeroToSixtyNs = perf.zeroToSixtyNs;
@@ -39,8 +37,12 @@ Car::Car(char const *const manufacturerName, char const *const modelName, Perfor
 
 Car::Car(Car const &o)
 {
-    this->manufacturer = o.manufacturer;
-    this->model = o.model;
+    char *placeholderManufacturer = new char[strlen(o.getManufacturer()) + 1];
+    strcpy(manufacturer, o.getManufacturer());
+
+    char *placeholderModel = new char[strlen(o.getModel()) + 1];
+    strcpy(model, o.getModel());
+
     this->seatCount = o.seatCount;
     this->backseatDoors = o.backseatDoors;
     this->zeroToSixtyNs = o.zeroToSixtyNs;
@@ -50,13 +52,8 @@ Car::Car(Car const &o)
 
 Car::~Car()
 {
-    delete this->manufacturer;
-    delete this->model;
-    this->zeroToSixtyNs = 0;
-    this->headonDragCoeff = 0;
-    this->horsepower = 0;
-    this->backseatDoors = None;
-    this->seatCount = 0;
+    delete[] this->manufacturer;
+    delete[] this->model;
 }
 
 Car &Car::operator=(Car const &o)
@@ -97,12 +94,14 @@ DoorKind Car::getBackseatDoors() const
 
 void Car::manufacturerChange(char const *const newManufacturer)
 {
-    this->manufacturer = (char *)newManufacturer;
+    char *placeholderManufacturer = new char[strlen(newManufacturer) + 1];
+    strcpy(manufacturer, newManufacturer);
 }
 
 void Car::modelNameChange(char const *const newModelName)
 {
-    this->model = (char *)newModelName;
+    char *placeholderModel = new char[strlen(newModelName) + 1];
+    strcpy(model, newModelName);
 }
 
 void Car::reevaluateStats(PerformanceStats newStats)
