@@ -22,10 +22,10 @@ Car::Car()
 
 Car::Car(char const *const manufacturerName, char const *const modelName, PerformanceStats perf, uint8_t numSeats, DoorKind backseatDoorDesign)
 {
-    char *placeholderManufacturer = new char[strlen(manufacturerName) + 1];
+    manufacturer = new char[strlen(manufacturerName) + 1];
     strcpy(manufacturer, manufacturerName);
 
-    char *placeholderModel = new char[strlen(modelName) + 1];
+    model = new char[strlen(modelName) + 1];
     strcpy(model, modelName);
 
     this->seatCount = numSeats;
@@ -37,10 +37,10 @@ Car::Car(char const *const manufacturerName, char const *const modelName, Perfor
 
 Car::Car(Car const &o)
 {
-    char *placeholderManufacturer = new char[strlen(o.getManufacturer()) + 1];
+    manufacturer = new char[strlen(o.getManufacturer()) + 1];
     strcpy(manufacturer, o.getManufacturer());
 
-    char *placeholderModel = new char[strlen(o.getModel()) + 1];
+    model = new char[strlen(o.getModel()) + 1];
     strcpy(model, o.getModel());
 
     this->seatCount = o.seatCount;
@@ -94,13 +94,13 @@ DoorKind Car::getBackseatDoors() const
 
 void Car::manufacturerChange(char const *const newManufacturer)
 {
-    char *placeholderManufacturer = new char[strlen(newManufacturer) + 1];
+    manufacturer = new char[strlen(newManufacturer) + 1];
     strcpy(manufacturer, newManufacturer);
 }
 
 void Car::modelNameChange(char const *const newModelName)
 {
-    char *placeholderModel = new char[strlen(newModelName) + 1];
+    model = new char[strlen(newModelName) + 1];
     strcpy(model, newModelName);
 }
 
